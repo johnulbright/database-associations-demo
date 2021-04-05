@@ -12,5 +12,14 @@ router.post('/user/:uid/dog/:did',async (req,res)=>{
         res.json({error:err})
     }
 })
-
+router.delete('/user/:uid/dog/:did',async (req,res)=>{
+    try{
+        //Method 1 : lazy using special methods
+        const user=await User.findOne({where:{id:req.params.uid}})
+        const result = await user.removeLikee(req.params.did)
+        res.json(result)
+    } catch(err){
+        res.json({error:err})
+    }
+})
 module.exports=router;
